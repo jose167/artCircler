@@ -218,6 +218,14 @@
     <Compile Include="Migrations\201606142325589_populateEventsTable.Designer.cs">
       <DependentUpon>201606142325589_populateEventsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606221048514_newForeignKeyPropertyToEvent.cs" />
+    <Compile Include="Migrations\201606221048514_newForeignKeyPropertyToEvent.Designer.cs">
+      <DependentUpon>201606221048514_newForeignKeyPropertyToEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606221100423_NewAddForeignKeyPropertiesToEvent.cs" />
+    <Compile Include="Migrations\201606221100423_NewAddForeignKeyPropertiesToEvent.Designer.cs">
+      <DependentUpon>201606221100423_NewAddForeignKeyPropertiesToEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -314,6 +322,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606142325589_populateEventsTable.resx">
       <DependentUpon>201606142325589_populateEventsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221048514_newForeignKeyPropertyToEvent.resx">
+      <DependentUpon>201606221048514_newForeignKeyPropertyToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221100423_NewAddForeignKeyPropertiesToEvent.resx">
+      <DependentUpon>201606221100423_NewAddForeignKeyPropertiesToEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
