@@ -1,7 +1,6 @@
 ﻿using ArtCircler.Models;
 using ArtCircler.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -21,7 +20,7 @@ namespace ArtCircler.Controllers
         {
             var viewModel = new EventFormViewModel
             {
-                Genres = _context.Genres.ToList()
+                Genres = _context.Genres.ToList() ///initialize
             };
 
             return View(viewModel);
@@ -31,11 +30,15 @@ namespace ArtCircler.Controllers
         [HttpPost]
         public ActionResult Create(EventFormViewModel viewModel)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();  ///Genre has to be initialize
+                return View("Create", viewModel);
+            }
             var evento = new Event
             {
                 ArtistId = User.Identity.GetUserId(),
-                DateTime = viewModel.DateTime,
+                DateTime = viewModel.GetDateTime(),
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
             };
