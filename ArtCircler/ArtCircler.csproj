@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201606221100423_NewAddForeignKeyPropertiesToEvent.Designer.cs">
       <DependentUpon>201606221100423_NewAddForeignKeyPropertiesToEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606291621030_addNameUser.cs" />
+    <Compile Include="Migrations\201606291621030_addNameUser.Designer.cs">
+      <DependentUpon>201606291621030_addNameUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -236,6 +240,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
+    <Compile Include="ViewModels\ExternalLoginListVIewModel.cs" />
+    <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\ValidateFutureDay.cs" />
     <Compile Include="ViewModels\ValidateTime.cs" />
   </ItemGroup>
@@ -330,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606221100423_NewAddForeignKeyPropertiesToEvent.resx">
       <DependentUpon>201606221100423_NewAddForeignKeyPropertiesToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606291621030_addNameUser.resx">
+      <DependentUpon>201606291621030_addNameUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
