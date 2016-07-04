@@ -23,8 +23,35 @@
                 <span class="genre">
                     @evento.Genre.Name
                 </span>
+                <button data-evento-id="@evento.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
             </div>
         </li>
     }
 
 </ul>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            
+            $(".js-toggle-attendance").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendance", { eventoId: button.attr("data-evento-id") })
+                .done(function() {
+                    button
+                        .removeClass("btn-default")
+                        .addClass("btn-info")
+                        .text("Going");
+
+                })
+                .fail(function() {
+                    alert("TRY AGAIN, somenthing did not work");
+
+                });
+            });
+        });
+
+    </script>
+
+    }
