@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
     font-family: "Lato", Helvetica, Arial, sans-serif;
     font-size: 17px;
@@ -89,4 +89,58 @@ font-size: 16px;
     background-color: #d9853b;
     padding: 6px 20px;
 
+}
+
+/*Event page*/
+
+.eventos{
+    list-style: none;
+}
+
+.eventos > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.eventos > li .date {
+    background:blue;
+    color: white;
+    text-align: center;
+    width: 60px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+
+}
+
+.eventos > li .date .month {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 2px 6px;
+
+}
+ 
+.eventos > li .date .day {
+    background: #f7f7f7;
+    color:#333;
+    font-size: 20px;
+    padding: 6px 12px;
+    
+    }
+
+.eventos > li .details {
+    position: absolute;
+    top: 0;
+    left:70px;
+}
+
+.eventos > li .details .artist {
+    font-weight: bold;
+    display: block;
+    
+}
+
+.eventos > li .details .genre {
+
+    font-size: 15px;
 }

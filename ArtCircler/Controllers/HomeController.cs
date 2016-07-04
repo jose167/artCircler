@@ -19,6 +19,7 @@ namespace ArtCircler.Controllers
         {
             var upcomingEvents = _context.Events
                 .Include(e => e.Artist)
+                .Include(e => e.Genre)
                 .Where(e => e.DateTime > DateTime.Now);
 
             return View(upcomingEvents);
