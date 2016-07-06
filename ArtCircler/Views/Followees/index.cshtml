@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ArtCircler.Models.ApplicationUser>
+@{
+    ViewBag.Title = "index";
+}
+
+<h1>Who I Follow</h1>
+
+<ul>
+    @foreach (var artist in Model)
+    {
+        <li>@artist.Name</li>
+    }
+</ul>
+
