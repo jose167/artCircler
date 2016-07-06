@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ArtCircler.Models.Event>
+
+@{
+    ViewBag.Title = "MyUp";
+}
+
+<h2>MyUp</h2>
+<ul class="eventos">
+    @foreach (var evento in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @evento.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @evento.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="artist">
+                    @evento.Venue
+                </span>
+                <span class="genre">
+                    @evento.Genre.Name
+                </span>
+            </div>
+        </li>
+    }
+
+</ul>

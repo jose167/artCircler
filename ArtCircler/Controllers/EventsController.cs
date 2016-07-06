@@ -1,6 +1,7 @@
 ﻿using ArtCircler.Models;
 using ArtCircler.ViewModels;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -14,6 +15,17 @@ namespace ArtCircler.Controllers
         public EventsController()
         {
             _context = new ApplicationDbContext();
+        }
+
+        public ActionResult MyUp()
+        {
+            var userId = User.Identity.GetUserId();
+            var eventos = _context.Events
+                .Where(e => e.ArtistId == userId && e.DateTime > DateTime.Now)
+                .Include(e => e.Genre)
+                .ToList();
+
+            return View(eventos);
         }
 
         [Authorize]
@@ -69,7 +81,7 @@ namespace ArtCircler.Controllers
             _context.Events.Add(evento);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyUp", "Events");
 
         }
 
