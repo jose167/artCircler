@@ -1,13 +1,15 @@
 ﻿@model ArtCircler.ViewModels.EventFormViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = Model.Heading;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create New Event</h2>
-@using (Html.BeginForm("Create", "Events"))
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Events"))
 {
+    <p class="alert alert-info">All fields are required</p>
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(m =>m.Id)
     <div class="form-group">
         @Html.LabelFor(m => m.Venue)
         @Html.TextBoxFor(m => m.Venue, new { @class = "form-control", autofocus = "autofocus" })

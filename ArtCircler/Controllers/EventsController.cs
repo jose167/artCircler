@@ -54,12 +54,36 @@ namespace ArtCircler.Controllers
         {
             var viewModel = new EventFormViewModel
             {
-                Genres = _context.Genres.ToList() ///initialize
+                Genres = _context.Genres.ToList(), ///initialize
+                Heading = "Add a Event"
             };
 
-            return View(viewModel);
+            return View("FormEvent",viewModel);
         }
 
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var evento = _context.Events.Single(e => e.Id == id && e.ArtistId == userId);
+
+            var viewModel = new EventFormViewModel
+            {
+                Heading ="Edit a Event",
+                Id = evento.Id,
+                Genres = _context.Genres.ToList(), ///initialize
+                Date = evento.DateTime.ToString("d MMM yyyy"),
+                Time = evento.DateTime.ToString("HH:mm"),
+                Genre = evento.GenreId,
+                Venue = evento.Venue
+         
+
+            };
+
+            return View("FormEvent", viewModel);
+        }
+
+   
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,7 +92,7 @@ namespace ArtCircler.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Genres = _context.Genres.ToList();  ///Genre has to be initialize
-                return View("Create", viewModel);
+                return View("FormEvent", viewModel);
             }
             var evento = new Event
             {
@@ -79,6 +103,29 @@ namespace ArtCircler.Controllers
             };
 
             _context.Events.Add(evento);
+            _context.SaveChanges();
+
+            return RedirectToAction("MyUp", "Events");
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(EventFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();  ///Genre has to be initialize
+                return View("FormEvent", viewModel);
+            }
+
+            var userId = User.Identity.GetUserId();
+            var evento = _context.Events.Single(e => e.Id == viewModel.Id && e.ArtistId == userId);
+            evento.Venue = viewModel.Venue;
+            evento.DateTime = viewModel.GetDateTime();
+            evento.GenreId = viewModel.Genre;
+           
             _context.SaveChanges();
 
             return RedirectToAction("MyUp", "Events");
