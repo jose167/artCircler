@@ -1,4 +1,5 @@
 ﻿using ArtCircler.Models;
+using ArtCircler.ViewModels;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -22,7 +23,13 @@ namespace ArtCircler.Controllers
                 .Include(e => e.Genre)
                 .Where(e => e.DateTime > DateTime.Now);
 
-            return View(upcomingEvents);
+            var viewModel = new HomeViewModel
+            {
+                UpcomingEvents = upcomingEvents,
+                ShowActions = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult About()
@@ -39,4 +46,6 @@ namespace ArtCircler.Controllers
             return View();
         }
     }
+
+  
 }

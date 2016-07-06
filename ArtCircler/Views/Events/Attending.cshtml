@@ -1,0 +1,41 @@
+﻿@model ArtCircler.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Attending";
+}
+
+<h2>Attending</h2>
+
+<ul class="eventos">
+    @foreach (var evento in Model.UpcomingEvents)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @evento.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @evento.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="artist">
+                    @evento.Artist.Name
+                    @if (Model.ShowActions)
+                    {
+                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@evento.ArtistId">Follow</button>
+                    }
+                </span>
+                <span class="genre">
+                    @evento.Genre.Name
+                </span>
+                @if (Model.ShowActions)
+                {
+                    <button data-evento-id="@evento.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
+                }
+
+            </div>
+        </li>
+    }
+
+</ul>
+

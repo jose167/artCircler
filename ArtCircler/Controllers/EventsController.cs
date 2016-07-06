@@ -1,6 +1,7 @@
 ﻿using ArtCircler.Models;
 using ArtCircler.ViewModels;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -15,6 +16,27 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
+        [Authorize]
+        public ActionResult Attending()
+        {
+            var userId = User.Identity.GetUserId();
+            var eventos = _context.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Evento)
+                .Include( e => e.Artist)
+                .Include(e => e.Genre)
+                .ToList();
+
+            var viewModel = new HomeViewModel()
+            {
+                UpcomingEvents = eventos,
+                ShowActions = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
+        }
+   
+        
         [Authorize]
         public ActionResult Create()
         {
