@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace ArtCircler.Controllers
+namespace ArtCircler.Controllers.Api
 {
     [Authorize]
     public class FollowingsController : ApiController

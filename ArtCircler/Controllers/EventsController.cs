@@ -16,12 +16,15 @@ namespace ArtCircler.Controllers
         {
             _context = new ApplicationDbContext();
         }
-
+        [Authorize]
         public ActionResult MyUp()
         {
             var userId = User.Identity.GetUserId();
             var eventos = _context.Events
-                .Where(e => e.ArtistId == userId && e.DateTime > DateTime.Now)
+                .Where(e =>
+                e.ArtistId == userId &&
+                e.DateTime > DateTime.Now &&
+                !e.IsCanceled)
                 .Include(e => e.Genre)
                 .ToList();
 

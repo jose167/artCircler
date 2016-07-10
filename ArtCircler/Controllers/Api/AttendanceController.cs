@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Http;
 
-namespace ArtCircler.Controllers
+namespace ArtCircler.Controllers.Api
 {
     [Authorize]
     public class AttendanceController : ApiController
