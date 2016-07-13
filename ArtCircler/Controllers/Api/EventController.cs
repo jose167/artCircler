@@ -1,6 +1,7 @@
 ﻿using ArtCircler.Models;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 
@@ -19,37 +20,15 @@ namespace ArtCircler.Controllers.Api
         public IHttpActionResult Cancel(int id)
         {
             var userId = User.Identity.GetUserId();
-            var evento = _context.Events.Single(e => e.Id == id && e.ArtistId == userId);
+            var evento = _context.Events
+                .Include(e => e.Attendances.Select(a => a.Attendee))
+                .Single(e => e.Id == id && e.ArtistId == userId);
             
             //in case the click the buttom of delete again
             if (evento.IsCanceled)
                 return NotFound();
 
-            evento.IsCanceled = true;
-
-            var notification = new Notification
-            {
-                DateTime = DateTime.Now,
-                Event = evento,
-                Type = NotificationType.EventoCanceled
-            };
-            
-            var attendees = _context.Attendances
-                .Where(a => a.EventoId == evento.Id)
-                .Select(a => a.Attendee)
-                .ToList();
-
-            foreach (var attendee in attendees)
-            {
-                var userNotification = new UserNotification
-                {
-                    User = attendee,
-                    Notification = notification
-                };
-                _context.UserNotifications.Add(userNotification);
-            }
-
-
+            evento.Cancel();
             _context.SaveChanges();
 
             return Ok();

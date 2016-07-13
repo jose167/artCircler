@@ -26,7 +26,7 @@ namespace ArtCircler.Models
         {
             modelBuilder.Entity<Attendance>()
                 .HasRequired(a => a.Evento)
-                .WithMany()
+                .WithMany(e => e.Attendances)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUser>()
@@ -41,7 +41,7 @@ namespace ArtCircler.Models
 
             modelBuilder.Entity<UserNotification>()
                 .HasRequired(n => n.User)
-                .WithMany()
+                .WithMany(u => u.UserNotifications)
                 .WillCascadeOnDelete(false);
 
 

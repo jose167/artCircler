@@ -74,7 +74,7 @@ namespace ArtCircler.Controllers
             {
                 Heading ="Edit a Event",
                 Id = evento.Id,
-                Genres = _context.Genres.ToList(), ///initialize
+                Genres = _context.Genres.ToList(), ///initialize//
                 Date = evento.DateTime.ToString("d MMM yyyy"),
                 Time = evento.DateTime.ToString("HH:mm"),
                 Genre = evento.GenreId,
@@ -124,12 +124,14 @@ namespace ArtCircler.Controllers
             }
 
             var userId = User.Identity.GetUserId();
-            var evento = _context.Events.Single(e => e.Id == viewModel.Id && e.ArtistId == userId);
-            evento.Venue = viewModel.Venue;
-            evento.DateTime = viewModel.GetDateTime();
-            evento.GenreId = viewModel.Genre;
-           
+            var evento = _context.Events
+                .Include(e => e.Attendances.Select(a => a.Attendee))
+                .Single(e => e.Id == viewModel.Id && e.ArtistId == userId);
+
+            evento.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
+
             _context.SaveChanges();
+                                   
 
             return RedirectToAction("MyUp", "Events");
 

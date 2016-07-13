@@ -158,3 +158,16 @@ border-radius: 9px;
 .eventos > li:hover .action{
     display:block;
 } 
+
+.navbar-inverse .notifications {
+    position: relative;
+   
+}
+
+.navbar-inverse .notifications .badge {
+    position: absolute;
+    top: 8px;
+    left: -2px;
+    background: blue; 
+}
+
