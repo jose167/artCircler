@@ -16,17 +16,27 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string query = null)
         {
             var upcomingEvents = _context.Events
                 .Include(e => e.Artist)
                 .Include(e => e.Genre)
                 .Where(e => e.DateTime > DateTime.Now && !e.IsCanceled);
 
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                upcomingEvents = upcomingEvents
+                    .Where(e =>
+                        e.Artist.Name.Contains(query) ||
+                        e.Genre.Name.Contains(query) ||
+                        e.Venue.Contains(query));
+            }
+
             var viewModel = new HomeViewModel
             {
                 UpcomingEvents = upcomingEvents,
-                ShowActions = User.Identity.IsAuthenticated
+                ShowActions = User.Identity.IsAuthenticated,
+                SearchTerm = query
             };
 
             return View(viewModel);

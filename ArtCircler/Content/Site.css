@@ -171,3 +171,6 @@ border-radius: 9px;
     background: blue; 
 }
 
+#searchEvent {
+    width: 300px;
+}

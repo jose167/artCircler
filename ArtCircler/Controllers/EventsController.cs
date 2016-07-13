@@ -50,7 +50,12 @@ namespace ArtCircler.Controllers
 
             return View(viewModel);
         }
-   
+
+        [HttpPost]
+        public ActionResult Search(HomeViewModel viewModel)
+        {
+            return RedirectToAction("Index", "Home", new {query = viewModel.SearchTerm});
+        }
         
         [Authorize]
         public ActionResult Create()
