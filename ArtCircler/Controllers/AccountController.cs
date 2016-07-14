@@ -155,7 +155,8 @@ namespace ArtCircler.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    Name = model.Name
+                    Name = model.Name,
+                    IsArtist = model.IsArtist
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -177,9 +178,7 @@ namespace ArtCircler.Controllers
             return View(model);
         }
 
-
-
-
+     
         public FileResult Photo()
         {
          
@@ -194,27 +193,8 @@ namespace ArtCircler.Controllers
             {
                 return new FilePathResult("/Content/blanckprofile.png", "image/jpeg");
             }
-
-        
-
+            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //
         // GET: /Account/ConfirmEmail

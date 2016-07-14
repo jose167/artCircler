@@ -17,10 +17,17 @@ namespace ArtCircler.Models
 
         public byte[] ProfilePicture { get; set; }
 
+        [StringLength(500)]
+        public string Bio { get; set; }
+
+        [Required]
+        public bool IsArtist { get; set; }
+
         //Navegation properties 
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
         public ICollection<UserNotification> UserNotifications { get; set; }
+        
 
         public ApplicationUser()
         {

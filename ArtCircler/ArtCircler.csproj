@@ -279,6 +279,14 @@
     <Compile Include="Migrations\201607140905011_Added user profile.Designer.cs">
       <DependentUpon>201607140905011_Added user profile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607141119239_bioAndArtist.cs" />
+    <Compile Include="Migrations\201607141119239_bioAndArtist.Designer.cs">
+      <DependentUpon>201607141119239_bioAndArtist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607141333496_new isArtist.cs" />
+    <Compile Include="Migrations\201607141333496_new isArtist.Designer.cs">
+      <DependentUpon>201607141333496_new isArtist.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -422,6 +430,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607140905011_Added user profile.resx">
       <DependentUpon>201607140905011_Added user profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607141119239_bioAndArtist.resx">
+      <DependentUpon>201607141119239_bioAndArtist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607141333496_new isArtist.resx">
+      <DependentUpon>201607141333496_new isArtist.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

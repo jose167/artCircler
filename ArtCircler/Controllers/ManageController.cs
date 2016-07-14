@@ -1,8 +1,8 @@
-﻿using System;
-using ArtCircler.Models;
+﻿using ArtCircler.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -326,11 +326,8 @@ namespace ArtCircler.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-
-
-
-
-
+        
+        
         //
         // POST: /Manage/LinkLogin
         [HttpPost]

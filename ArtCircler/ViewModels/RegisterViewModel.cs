@@ -23,5 +23,8 @@ namespace ArtCircler.ViewModels
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        public bool IsArtist { get; set; }
     }
 }

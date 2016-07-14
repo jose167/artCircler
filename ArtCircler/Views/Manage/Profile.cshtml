@@ -8,6 +8,8 @@
 
 Update your profile picture:
 
+
+
 @using (Html.BeginForm("Profile", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -23,5 +25,6 @@ Update your profile picture:
             <input type="submit" value="Create"/>
         </p>
     </fieldset>
+    <a href="@Url.Action("Index", "Manage")">Manage Account</a>
     <img src="@Url.Action("Photo", "Account" , new { UserId=User.Identity.GetUserId() })" />
 }
