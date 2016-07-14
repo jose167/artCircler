@@ -16,8 +16,10 @@ namespace ArtCircler.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationDbContext _context;
         public AccountController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -174,6 +176,45 @@ namespace ArtCircler.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+
+
+        public FileResult Photo()
+        {
+         
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            if (user.ProfilePicture != null)
+            {
+                return new FileContentResult(user.ProfilePicture, "image/jpeg");
+            }
+            else
+            {
+                return new FilePathResult("/Content/blanckprofile.png", "image/jpeg");
+            }
+
+        
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //
         // GET: /Account/ConfirmEmail

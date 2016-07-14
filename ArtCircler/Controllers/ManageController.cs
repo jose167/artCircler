@@ -1,12 +1,12 @@
 ﻿using System;
+using ArtCircler.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using ArtCircler.Models;
 
 namespace ArtCircler.Controllers
 {
@@ -16,8 +16,10 @@ namespace ArtCircler.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationDbContext _context;
         public ManageController()
         {
+            _context = new ApplicationDbContext();
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -298,6 +300,36 @@ namespace ArtCircler.Controllers
                 OtherLogins = otherLogins
             });
         }
+
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            ViewBag.Message = "Update your profile";
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Profile(HttpPostedFileBase Profile)
+        {
+            var userId = User.Identity.GetUserId();
+            var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+            byte[] image = new byte[Profile.ContentLength];
+            Profile.InputStream.Read(image, 0, Convert.ToInt32(Profile.ContentLength));
+
+            user.ProfilePicture = image;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
+
+
+
 
         //
         // POST: /Manage/LinkLogin

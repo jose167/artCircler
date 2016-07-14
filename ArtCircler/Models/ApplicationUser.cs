@@ -15,6 +15,8 @@ namespace ArtCircler.Models
         [StringLength(100)]
         public string Name { get; set; }
 
+        public byte[] ProfilePicture { get; set; }
+
         //Navegation properties 
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
