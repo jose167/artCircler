@@ -100,20 +100,23 @@ border-radius: 9px;
 
 .eventos{
     list-style: none;
+   
 }
 
 .eventos > li {
     position: relative;
     margin-bottom: 30px;
+   
 }
 
 .eventos > li .date {
     background:blue;
     color: white;
     text-align: center;
-    width: 60px;
+    width: 100px;
     -ms-border-radius: 8px;
     border-radius: 8px;
+    
 
 }
 
@@ -122,6 +125,7 @@ border-radius: 9px;
     font-size: 16px;
     font-weight: bold;
     padding: 2px 6px;
+    height: 40px;
 
 }
  
@@ -130,13 +134,14 @@ border-radius: 9px;
     color:#333;
     font-size: 20px;
     padding: 6px 12px;
+    height: 70px;
     
     }
 
 .eventos > li .details {
     position: absolute;
     top: 0;
-    left:70px;
+    left:120px;
 }
 
 .eventos > li .details .artist {

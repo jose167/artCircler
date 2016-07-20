@@ -4,6 +4,7 @@ namespace ArtCircler.ViewModels
 {
     public class RegisterViewModel
     {
+        
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -23,6 +24,10 @@ namespace ArtCircler.ViewModels
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Say Something about you!")]
+        public string Bio { get; set; }
 
         [Required]
         public bool IsArtist { get; set; }

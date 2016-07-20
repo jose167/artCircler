@@ -1,30 +1,35 @@
 ﻿@using Microsoft.AspNet.Identity
 
-@{
-    ViewBag.Title = "Profile";
-}
+    
 
-<h2>Profile</h2>
+    @{
+        ViewBag.Title = "Profile";
+    }
 
-Update your profile picture:
+<h2>@User.Identity.GetUserName()</h2>
 
 
 
-@using (Html.BeginForm("Profile", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
-    <fieldset>
-        <legend>Photo</legend>
-        <div class="editor-label">
-            <label for="profile">FileName:</label>
-        </div>
-        <div class="editor-field">
-            <input name="Profile" id="profile" type="file"/>
-        </div>
-        <p>
-            <input type="submit" value="Create"/>
-        </p>
-    </fieldset>
-    <a href="@Url.Action("Index", "Manage")">Manage Account</a>
-    <img src="@Url.Action("Photo", "Account" , new { UserId=User.Identity.GetUserId() })" />
-}
+    @using(Html.BeginForm("Profile", "Manage", FormMethod.Post, new
+    {
+        enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <legend>Photo</legend>
+            <div class="editor-label">
+                <label for="profile">FileName:</label>
+            </div>
+            <div class="editor-field">
+                <input name="Profile" id="profile" type="file" />
+            </div>
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+        
+
+
+        <a href="@Url.Action("Index", "Manage")">Manage Account</a>
+        <img src="@Url.Action("Photo", "Account" , new { UserId=User.Identity.GetUserId() })" />
+    }

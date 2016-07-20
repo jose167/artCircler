@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ArtCircler.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using ArtCircler.Controllers.Api;
-using ArtCircler.Dtos;
 
 namespace ArtCircler.Models
 {
@@ -18,6 +17,10 @@ namespace ArtCircler.Models
 
         [Required]
         public string ArtistId { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public string EventName { get; set; }
 
         public DateTime DateTime { get; set; }
 
@@ -49,13 +52,14 @@ namespace ArtCircler.Models
             }
         }
 
-        public void Modify(DateTime dateTime, string venue, byte genre)
+        public void Modify(DateTime dateTime, string venue, byte genre, string eventName)
         {
             var notification = Notification.EventUpdated(this, DateTime, Venue);
             
             Venue = venue;
             DateTime = dateTime;
             GenreId = genre;
+            EventName = eventName;
 
 
             foreach (var attendee in Attendances.Select(a => a.Attendee))

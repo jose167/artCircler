@@ -32,20 +32,42 @@
             </div>
             <div class="details">
                 <span class="artist">
-                    
-                    @evento.Artist.Name
-                    @if (Model.ShowActions)
-                    {
-                        <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@evento.ArtistId">Follow</button>
-                    }
+                    <p>
+                        Event Name: <a href="@Url.Action("Details", "Events", new {id = evento.Id})">
+                            @evento.EventName
+                        </a>
+                    </p>
+                    <span>
+
+                        @if (Model.ShowActions)
+                        {
+                            <button data-evento-id="@evento.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
+                        }
+                    </span>
+
+                </span>
+                <span class="Profile">
+                    <p>
+                        Artist Name: <a href="@Url.Action("ArtistProfile", "Events", new {id = evento.Id})">
+                            @evento.Artist.Name
+
+                        </a>
+                    </p>
+
+                    <span>
+                        @if (Model.ShowActions)
+                        {
+                            <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@evento.ArtistId">Follow</button>
+                        }
+                    </span>
+
                 </span>
                 <span class="genre">
-                    @evento.Genre.Name
+                    <p> Type Of Event: 
+                        @evento.Genre.Name
+
+                    </p>
                 </span>
-                @if (Model.ShowActions)
-                {
-                    <button data-evento-id="@evento.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
-                }
 
             </div>
         </li>

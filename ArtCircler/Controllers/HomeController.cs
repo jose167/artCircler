@@ -16,6 +16,7 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
+       
         public ActionResult Index(string query = null)
         {
             var upcomingEvents = _context.Events
@@ -29,6 +30,7 @@ namespace ArtCircler.Controllers
                     .Where(e =>
                         e.Artist.Name.Contains(query) ||
                         e.Genre.Name.Contains(query) ||
+                        e.EventName.Contains(query) ||
                         e.Venue.Contains(query));
             }
 

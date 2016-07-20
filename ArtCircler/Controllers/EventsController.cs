@@ -16,7 +16,63 @@ namespace ArtCircler.Controllers
         {
             _context = new ApplicationDbContext();
         }
-        [Authorize]
+
+        
+        public ActionResult ArtistProfile(int id)
+        {
+
+            var evento = _context.Events
+                .Include(e => e.Artist)
+                .Include(e => e.Genre)
+                .SingleOrDefault(e => e.Id == id);
+
+
+            if (evento == null)
+                return HttpNotFound();
+
+            var viewModel = new ArtistViewModel { Evento = evento };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+
+                viewModel.IsFollowing = _context.Followings
+                     .Any(f => f.FolloweeId == evento.ArtistId && f.FolloweeId == userId);
+
+            }
+            return View("ArtistProfile", viewModel);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var evento = _context.Events
+                .Include(e => e.Artist)
+                .Include(e => e.Genre)
+                .SingleOrDefault(e => e.Id == id);
+
+            if (evento == null)
+                return HttpNotFound();
+
+            var viewModel = new EventDetailsViewModel { Evento = evento };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+
+                viewModel.IsAttending = _context.Attendances
+                    .Any(a => a.EventoId == evento.Id && a.AttendeeId == userId);
+
+                viewModel.IsFollowing = _context.Followings
+                    .Any(f => f.FolloweeId == evento.ArtistId && f.FolloweeId == userId);
+
+            }
+
+            return View("Details", viewModel);
+        }
+
+
+
+        [System.Web.Mvc.Authorize]
         public ActionResult MyUp()
         {
             var userId = User.Identity.GetUserId();
@@ -31,7 +87,7 @@ namespace ArtCircler.Controllers
             return View(eventos);
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Attending()
         {
             var userId = User.Identity.GetUserId();
@@ -51,13 +107,13 @@ namespace ArtCircler.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult Search(HomeViewModel viewModel)
         {
             return RedirectToAction("Index", "Home", new {query = viewModel.SearchTerm});
         }
         
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Create()
         {
             var viewModel = new EventFormViewModel
@@ -69,7 +125,7 @@ namespace ArtCircler.Controllers
             return View("FormEvent",viewModel);
         }
 
-        [Authorize]
+        [System.Web.Mvc.Authorize]
         public ActionResult Edit(int id)
         {
             var userId = User.Identity.GetUserId();
@@ -79,6 +135,7 @@ namespace ArtCircler.Controllers
             {
                 Heading ="Edit a Event",
                 Id = evento.Id,
+                EventName = evento.EventName,
                 Genres = _context.Genres.ToList(), ///initialize//
                 Date = evento.DateTime.ToString("d MMM yyyy"),
                 Time = evento.DateTime.ToString("HH:mm"),
@@ -92,8 +149,8 @@ namespace ArtCircler.Controllers
         }
 
    
-        [Authorize]
-        [HttpPost]
+        [System.Web.Mvc.Authorize]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(EventFormViewModel viewModel)
         {
@@ -105,6 +162,7 @@ namespace ArtCircler.Controllers
             var evento = new Event
             {
                 ArtistId = User.Identity.GetUserId(),
+                EventName = viewModel.EventName,
                 DateTime = viewModel.GetDateTime(),
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
@@ -117,8 +175,8 @@ namespace ArtCircler.Controllers
 
         }
 
-        [Authorize]
-        [HttpPost]
+        [System.Web.Mvc.Authorize]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(EventFormViewModel viewModel)
         {
@@ -133,7 +191,7 @@ namespace ArtCircler.Controllers
                 .Include(e => e.Attendances.Select(a => a.Attendee))
                 .Single(e => e.Id == viewModel.Id && e.ArtistId == userId);
 
-            evento.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
+            evento.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre, viewModel.EventName);
 
             _context.SaveChanges();
                                    
@@ -141,6 +199,8 @@ namespace ArtCircler.Controllers
             return RedirectToAction("MyUp", "Events");
 
         }
+
+        
 
     }
 }

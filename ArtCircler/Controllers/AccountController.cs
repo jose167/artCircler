@@ -153,9 +153,10 @@ namespace ArtCircler.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.Email,
+                    UserName = model.Name,
                     Email = model.Email,
                     Name = model.Name,
+                    Bio = model.Bio,
                     IsArtist = model.IsArtist
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);

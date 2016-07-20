@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNet.Identity
+@model ArtCircler.ViewModels.ArtistViewModel
+
+@{
+    ViewBag.Title = "Artist Profile";
+
+}
+
+<h2>
+    @Model.Evento.Artist.Name
+    @Model.Evento.Artist.Bio
+    @Model.Evento.Artist.ProfilePicture
+   
+   </h2>

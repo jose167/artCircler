@@ -23,6 +23,9 @@ namespace ArtCircler.ViewModels
         public string Time { get; set; }
 
         [Required]
+        public string EventName { get; set; }
+
+        [Required]
         public byte Genre { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }

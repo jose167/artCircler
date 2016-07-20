@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -314,7 +315,10 @@ namespace ArtCircler.Controllers
         public ActionResult Profile(HttpPostedFileBase Profile)
         {
             var userId = User.Identity.GetUserId();
-            var user = _context.Users.Where(u => u.Id == userId).FirstOrDefault();
+            var user = _context.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.Bio)
+                .FirstOrDefault();
 
             byte[] image = new byte[Profile.ContentLength];
             Profile.InputStream.Read(image, 0, Convert.ToInt32(Profile.ContentLength));
@@ -327,7 +331,7 @@ namespace ArtCircler.Controllers
 
         }
         
-        
+
         //
         // POST: /Manage/LinkLogin
         [HttpPost]
@@ -337,6 +341,7 @@ namespace ArtCircler.Controllers
             // Request a redirect to the external login provider to link a login for the current user
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
+
 
         //
         // GET: /Manage/LinkLoginCallback
