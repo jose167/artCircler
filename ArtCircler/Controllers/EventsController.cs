@@ -17,7 +17,30 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
-        
+        public FileResult Photo(int id)
+        {
+            var evento = _context.Events
+               .Include(e => e.Artist)
+               .Include(e => e.Genre)
+              .SingleOrDefault(e => e.Id == id);
+
+           
+            if (evento != null)
+            {
+                if (evento.Artist.ProfilePicture != null)
+            {
+                   return new FileContentResult(evento.Artist.ProfilePicture, "image/jpeg");
+                }
+                else
+                {
+                   return new FilePathResult("/Content/blanckprofile.png", "image/jpeg");
+                }
+            }
+            return null;
+
+        }
+
+
         public ActionResult ArtistProfile(int id)
         {
 
@@ -25,11 +48,7 @@ namespace ArtCircler.Controllers
                 .Include(e => e.Artist)
                 .Include(e => e.Genre)
                 .SingleOrDefault(e => e.Id == id);
-
-
-            if (evento == null)
-                return HttpNotFound();
-
+            
             var viewModel = new ArtistViewModel { Evento = evento };
 
             if (User.Identity.IsAuthenticated)
@@ -40,7 +59,9 @@ namespace ArtCircler.Controllers
                      .Any(f => f.FolloweeId == evento.ArtistId && f.FolloweeId == userId);
 
             }
-            return View("ArtistProfile", viewModel);
+            
+            
+           return View("ArtistProfile", viewModel);
         }
 
         public ActionResult Details(int id)
@@ -98,10 +119,16 @@ namespace ArtCircler.Controllers
                 .Include(e => e.Genre)
                 .ToList();
 
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Evento.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.EventoId);
+
             var viewModel = new HomeViewModel()
             {
                 UpcomingEvents = eventos,
-                ShowActions = User.Identity.IsAuthenticated
+                ShowActions = User.Identity.IsAuthenticated,
+                Attendances = attendances
             };
 
             return View(viewModel);

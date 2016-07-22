@@ -9,7 +9,7 @@ namespace ArtCircler.Models
         public DateTime DateTime { get; set; }
         public NotificationType Type { get; set; }
         public DateTime?  OriginalDateTime { get; set; }
-        public string OriginalVenu { get; private set; }
+        public string OriginalVenue { get; private set; }
 
        [Required]
         public Event Event { get; set; }
@@ -32,11 +32,11 @@ namespace ArtCircler.Models
         {
             return new Notification(NotificationType.EventoCreated, evento);
         }
-        public static Notification EventUpdated(Event NewEvento, DateTime originalDateTime, string originalVenue)
+        public static Notification EventUpdated(Event newEvento, DateTime originalDateTime, string originalVenue)
         {
-            var notification = new Notification(NotificationType.EventoUpdated, NewEvento);
+            var notification = new Notification(NotificationType.EventoUpdated, newEvento);
             notification.OriginalDateTime = originalDateTime;
-            notification.OriginalVenu = originalVenue;
+            notification.OriginalVenue = originalVenue;
 
             return notification;
         }

@@ -179,3 +179,11 @@ border-radius: 9px;
 #searchEvent {
     width: 300px;
 }
+
+/*notifications*/
+
+ul.notifications {
+    list-style: none;
+    padding-left: 0;
+}
+

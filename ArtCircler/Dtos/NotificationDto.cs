@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ArtCircler.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
-using ArtCircler.Models;
 
 namespace ArtCircler.Dtos
 {

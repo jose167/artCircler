@@ -1,5 +1,6 @@
 ﻿using ArtCircler.Models;
 using ArtCircler.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -33,12 +34,18 @@ namespace ArtCircler.Controllers
                         e.EventName.Contains(query) ||
                         e.Venue.Contains(query));
             }
+            var userId = User.Identity.GetUserId();
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Evento.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.EventoId);
 
             var viewModel = new HomeViewModel
             {
                 UpcomingEvents = upcomingEvents,
                 ShowActions = User.Identity.IsAuthenticated,
-                SearchTerm = query
+                SearchTerm = query,
+                Attendances = attendances
             };
 
             return View(viewModel);

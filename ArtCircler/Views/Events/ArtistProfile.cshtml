@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using System.Diagnostics.Eventing.Reader
+@using ArtCircler.Models
+@using Microsoft.AspNet.Identity
 @model ArtCircler.ViewModels.ArtistViewModel
 
 @{
@@ -10,5 +12,8 @@
     @Model.Evento.Artist.Name
     @Model.Evento.Artist.Bio
     @Model.Evento.Artist.ProfilePicture
-   
-   </h2>
+
+    <img src="@Url.Action("ArtistProfile", "Events", new { id = @Model.Evento.Artist.ProfilePicture })" />
+
+
+</h2>

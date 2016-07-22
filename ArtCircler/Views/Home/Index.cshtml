@@ -39,9 +39,15 @@
                     </p>
                     <span>
 
-                        @if (Model.ShowActions)
+                        @if (Model.ShowActions && !evento.IsCanceled)
                         {
-                            <button data-evento-id="@evento.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
+                            <button 
+                                    data-evento-id="@evento.Id"
+                                     class="btn
+                                    @(Model.Attendances.Contains(evento.Id) ? "btn-info" : "btn-default") 
+                                    btn-sm pull-right js-toggle-attendance">
+                                    Going?
+                            </button>
                         }
                     </span>
 
@@ -49,8 +55,9 @@
                 <span class="Profile">
                     <p>
                         Artist Name: <a href="@Url.Action("ArtistProfile", "Events", new {id = evento.Id})">
+                                         
                             @evento.Artist.Name
-
+                                       
                         </a>
                     </p>
 
@@ -78,37 +85,55 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+        $(document)
+            .ready(function() {
 
-            $(".js-toggle-attendance").click(function (e) {
-                var button = $(e.target);
-                $.post("/api/attendance", { eventoId: button.attr("data-evento-id") })
-                .done(function () {
-                    button
-                        .removeClass("btn-default")
-                        .addClass("btn-info")
-                        .text("Going");
+                $(".js-toggle-attendance")
+                    .click(function(e) {
+                        var button = $(e.target);
+                        if (button.hasClass("btn-default")) {
+                            $.post("/api/attendance", { eventoId: button.attr("data-evento-id") })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-default")
+                                        .addClass("btn-info")
+                                        .text("Going");
 
-                })
-                .fail(function () {
-                    alert("TRY AGAIN, somenthing did not work");
+                                })
+                                .fail(function () {
+                                    alert("TRY AGAIN, somenthing did not work");
 
-                });
+                                });
+                        } else {
+                            $.ajax({
+                                    url: "/api/attendance/" + button.attr("data-evento-id"),
+                                    method: "DELETE"
+                                })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-info")
+                                        .addClass("btn-default")
+                                        .text("Going?");
+                                })
+                                .fail(function () {
+                                    alert("Something happens");
+                                });
+                        }
+                    });
+
+                $(".js-toggle-follow")
+                    .click(function(e) {
+                        var button = $(e.target);
+                        $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                            .done(function() {
+                                button.text("Following");
+                            })
+                            .fail(function() {
+                                alert("TRY AGAIN, somenthing when wrong");
+
+                            });
+                    });
             });
-
-            $(".js-toggle-follow").click(function (e) {
-                var button = $(e.target);
-                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                .done(function () {
-                    button.text("Following");
-                })
-
-                .fail(function () {
-                    alert("TRY AGAIN, somenthing when wrong");
-
-                });
-            });
-        });
 
     </script>
 
