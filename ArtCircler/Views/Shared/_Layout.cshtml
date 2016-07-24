@@ -11,9 +11,12 @@
 
 </head>
 <body>
-    <div class="page-header">
-        <h1 class="text-center">ArtCircler<small>Subtext for header</small></h1>
-    </div>
+    <div class="jumbotron">
+        <h1 class="text-center">
+            ArtCircler<small class="smallText">Subtext for header</small>
+        </h1>
+
+       </div>
     <div class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">
@@ -26,9 +29,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                   <li>@Html.ActionLink("Add Event", "Create", "Events")</li>
-                   <li>@Html.ActionLink("Profile", "Profile", "Manage")</li>
-                  
+                    <li>@Html.ActionLink("Add Event", "Create", "Events")</li>
+                    <li>@Html.ActionLink("Profile", "Profile", "Manage")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -46,62 +49,68 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-<script type="text/x-template" id="notifications-template">
+    <script type="text/x-template" id="notifications-template">
         <ul class="notifications">
             <%
             _.each(notifications, function(notification){
-                if (notification.type == 1) { %>
-                     <li><%= notification.event.artist.name %> has canceled the event at <%= notification.event.venue %> at <%= notification.event.dateTime %>.</li>
-                <% }
-              else if (notification.type == 2) {
-                    var changes = [],
-                    originalValues = [],
-                    newValues = [];
-            
-                   if (notification.originalVenue != notification.event.venue){
-                        changes.push('venue');
-                        originalValues.push(notification.originalVenue);
-                        newValues.push(notification.event.venue);       
-                    } 
-                   
-                    if (notification.originalDateTime != notification.event.dateTime) {
-                        changes.push('date/time');
-                        originalValues.push(notification.originalDateTime);
-                        newValues.push(notification.event.dateTime);
-                    }
-               %>
-                    <li><%= notification.event.artist.name %> has changed the <%= changes.join(' and ') %> of the event from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>      
-               <% 
-                }
+            if (notification.type == 1) { %>
+            <li><%= notification.event.artist.name %> has canceled the event at <%= notification.event.venue %> at <%= notification.event.dateTime %>.</li>
+            <% }
+            else if (notification.type == 2) {
+            var changes = [],
+            originalValues = [],
+            newValues = [];
+
+            if (notification.originalVenue != notification.event.venue){
+            changes.push('venue');
+            originalValues.push(notification.originalVenue);
+            newValues.push(notification.event.venue);
+            }
+
+            if (notification.originalDateTime != notification.event.dateTime) {
+            changes.push('date/time');
+            originalValues.push(notification.originalDateTime);
+            newValues.push(notification.event.dateTime);
+            }
+            %>
+            <li><%= notification.event.artist.name %> has changed the <%= changes.join(' and ') %> of the event from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+            <%
+            }
             })
             %>
         </ul>
     </script>
 
     <script>
-        $(document).ready(function () {
-            $.getJSON("/api/notifications", function (notifications) {
-                if (notifications.length == 0)
-                    return;
+        $(document)
+            .ready(function () {
+                $.getJSON("/api/notifications",
+                    function (notifications) {
+                        if (notifications.length == 0)
+                            return;
 
-                $(".js-notifications-count")
-                    .text(notifications.length)
-                    .removeClass("hide")
-                    .addClass("animated zoomInUp");
+                        $(".js-notifications-count")
+                            .text(notifications.length)
+                            .removeClass("hide")
+                            .addClass("animated zoomInUp");
 
-                $(".notifications").popover({
-                    html: true,
-                    title: "Notifications",
-                    content: function () {
-                        var compiled = _.template($("#notifications-template").html());
-                        return compiled({ notifications: notifications });
-                    },
-                    placement: "bottom"
-                });
+                        $(".notifications")
+                            .popover({
+                                html: true,
+                                title: "Notifications",
+                                content: function () {
+                                    var compiled = _.template($("#notifications-template").html());
+                                    return compiled({ notifications: notifications });
+                                },
+                                placement: "bottom"
+                            });
 
+                    });
             });
-        });
     </script>
+
+
 </body>
+
 
 </html>

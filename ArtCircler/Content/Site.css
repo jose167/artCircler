@@ -3,7 +3,11 @@
     padding-bottom: 20px;
     font-family: "Lato", Helvetica, Arial, sans-serif;
     font-size: 17px;
+   
 }
+
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -187,3 +191,15 @@ ul.notifications {
     padding-left: 0;
 }
 
+.jumbotron {
+    background: #DE6262; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #DE6262 , #FFB88C); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #DE6262 , #FFB88C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    margin-bottom: 0;
+    color: white;
+    font-weight: 900;
+    font-size: 80px;
+}
+.smallText {
+    color: white;
+}

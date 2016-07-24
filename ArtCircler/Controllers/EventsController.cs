@@ -20,24 +20,17 @@ namespace ArtCircler.Controllers
         public FileResult Photo(int id)
         {
             var evento = _context.Events
-               .Include(e => e.Artist)
-               .Include(e => e.Genre)
-              .SingleOrDefault(e => e.Id == id);
-
-           
-            if (evento != null)
-            {
+                .Include(e => e.Artist)
+                .SingleOrDefault(e => e.Id == id);
+            
                 if (evento.Artist.ProfilePicture != null)
-            {
+                { 
                    return new FileContentResult(evento.Artist.ProfilePicture, "image/jpeg");
                 }
                 else
                 {
                    return new FilePathResult("/Content/blanckprofile.png", "image/jpeg");
                 }
-            }
-            return null;
-
         }
 
 

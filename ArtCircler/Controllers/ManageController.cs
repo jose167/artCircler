@@ -23,6 +23,8 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
+    
+
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;

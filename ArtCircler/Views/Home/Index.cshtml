@@ -1,8 +1,10 @@
-﻿@model ArtCircler.ViewModels.HomeViewModel
+﻿@using System.Web.UI.WebControls
+@model ArtCircler.ViewModels.HomeViewModel
 
 @{
     ViewBag.Title = "Home Page";
 }
+<body onload="myFunction()">
 <h1>Upcoming Events </h1>
 @using (Html.BeginForm("Search", "Events"))
 {
@@ -18,6 +20,22 @@
     
 
 }
+<span>
+    @if (!Model.ShowActions)
+    {
+        <script>
+            function myFunction() {
+                bootbox.dialog({
+                    title: "Welcome to Art-Circler",
+                    message:
+                            'Login or Register on Art-Circler.<br>' +
+                           '<img src="images/space.jpg" alt="login picture" width:"300px"/>'
+                });
+            }
+        </script>
+    }
+        </span>
+
 <ul class="eventos">
     @foreach (var evento in Model.UpcomingEvents)
     {
@@ -36,51 +54,50 @@
                         Event Name: <a href="@Url.Action("Details", "Events", new {id = evento.Id})">
                             @evento.EventName
                         </a>
-                    </p>
-                    <span>
+                        
+                        <span>
 
-                        @if (Model.ShowActions && !evento.IsCanceled)
-                        {
-                            <button 
-                                    data-evento-id="@evento.Id"
-                                     class="btn
-                                    @(Model.Attendances.Contains(evento.Id) ? "btn-info" : "btn-default") 
+                            @if (Model.ShowActions && !evento.IsCanceled)
+                            {
+                                <button data-evento-id="@evento.Id"
+                                        class="btn
+                                    @(Model.Attendances.Contains(evento.Id) ? "btn-info" : "btn-default")
                                     btn-sm pull-right js-toggle-attendance">
                                     Going?
-                            </button>
-                        }
-                    </span>
-
+                                </button>
+                            }
+                        </span>
+                    </p>
+                   
                 </span>
                 <span class="Profile">
                     <p>
                         Artist Name: <a href="@Url.Action("ArtistProfile", "Events", new {id = evento.Id})">
                                          
                             @evento.Artist.Name
-                                       
+                                      
                         </a>
+                        <span>
+                            @if (Model.ShowActions)
+                            {
+                                <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@evento.ArtistId">Follow</button>
+                            }
+                        </span>
                     </p>
-
-                    <span>
-                        @if (Model.ShowActions)
-                        {
-                            <button class="btn btn-link btn-sm js-toggle-follow" data-user-id="@evento.ArtistId">Follow</button>
-                        }
-                    </span>
-
-                </span>
+                        </span>
                 <span class="genre">
                     <p> Type Of Event: 
                         @evento.Genre.Name
 
                     </p>
                 </span>
-
+                
             </div>
         </li>
     }
 
 </ul>
+</body>
 
 @section scripts
 {
@@ -101,7 +118,7 @@
 
                                 })
                                 .fail(function () {
-                                    alert("TRY AGAIN, somenthing did not work");
+                                    bootbox.alert("TRY AGAIN, somenthing did not work");
 
                                 });
                         } else {
@@ -116,7 +133,7 @@
                                         .text("Going?");
                                 })
                                 .fail(function () {
-                                    alert("Something happens");
+                                    bootbox.alert("Something happens");
                                 });
                         }
                     });
