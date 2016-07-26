@@ -153,7 +153,7 @@ namespace ArtCircler.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.Name,
+                    UserName = model.Email,
                     Email = model.Email,
                     Name = model.Name,
                     Bio = model.Bio,
@@ -192,7 +192,7 @@ namespace ArtCircler.Controllers
             }
             else
             {
-                return new FilePathResult("/Content/blanckprofile.png", "image/jpeg");
+                return new FilePathResult("/images/blanckprofile.png", "image/jpeg");
             }
             
         }

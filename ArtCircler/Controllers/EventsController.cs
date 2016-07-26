@@ -29,7 +29,7 @@ namespace ArtCircler.Controllers
                 }
                 else
                 {
-                   return new FilePathResult("/Content/blanckprofile.png", "image/jpeg");
+                   return new FilePathResult("/images/blanckprofile.png", "image/jpeg");
                 }
         }
 

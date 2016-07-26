@@ -1,18 +1,19 @@
 ﻿@using Microsoft.AspNet.Identity
-@model ArtCircler.Models.ApplicationUser
+@using ArtCircler.Models.Extensions
+
     
 
     @{
         ViewBag.Title = "Profile";
     }
 
-<h2>@User.Identity.GetUserName()</h2>
+<h2>@User.Identity.GetUserFirstName()</h2>
 <div class="row">
     <div class="col-md-4">
-        <img src="@Url.Action("Photo", "Account", new {UserId = User.Identity.GetUserId()})"/>
+        <img width="60" src="@Url.Action("Photo", "Account", new {UserId = User.Identity.GetUserId()})"/>
     </div>
     <div class="col-md-6">
-        
+        <p>@User.Identity.GetUserBio()</p>
     </div>
 
 </div>

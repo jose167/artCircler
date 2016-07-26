@@ -3,7 +3,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -23,8 +22,7 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
-    
-
+        
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -55,7 +53,7 @@ namespace ArtCircler.Controllers
             }
         }
 
-        //
+       //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -319,7 +317,6 @@ namespace ArtCircler.Controllers
             var userId = User.Identity.GetUserId();
             var user = _context.Users
                 .Where(u => u.Id == userId)
-                .Include(u => u.Bio)
                 .FirstOrDefault();
 
             byte[] image = new byte[Profile.ContentLength];
@@ -332,8 +329,8 @@ namespace ArtCircler.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-        
 
+    
         //
         // POST: /Manage/LinkLogin
         [HttpPost]
@@ -369,7 +366,7 @@ namespace ArtCircler.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -420,6 +417,6 @@ namespace ArtCircler.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

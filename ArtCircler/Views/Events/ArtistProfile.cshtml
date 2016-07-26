@@ -11,9 +11,10 @@
 <h2>
     @Model.Evento.Artist.Name
     @Model.Evento.Artist.Bio
+    @Model.Evento.Artist.IsArtist
     
 
-    <img src="@Url.Action("ArtistProfile", "Events", new { id = @Model.Evento.Id })" />
+    <img src="@Url.Action("Photo", "Events", new { id = @Model.Evento.Id })" />
 
 
 </h2>

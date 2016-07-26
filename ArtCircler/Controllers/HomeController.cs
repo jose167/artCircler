@@ -17,7 +17,7 @@ namespace ArtCircler.Controllers
             _context = new ApplicationDbContext();
         }
 
-       
+
         public ActionResult Index(string query = null)
         {
             var upcomingEvents = _context.Events
@@ -65,6 +65,4 @@ namespace ArtCircler.Controllers
             return View();
         }
     }
-
-  
 }

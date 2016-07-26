@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title Art-Circler</title>
     <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,700|Lato' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -29,9 +29,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Add Event", "Create", "Events")</li>
-                    <li>@Html.ActionLink("Profile", "Profile", "Manage")</li>
 
+                   
+                        <li>@Html.ActionLink("Add Event", "Create", "Events")</li>
+                        <li>@Html.ActionLink("Profile", "Profile", "Manage")</li>
+                    
+                    
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,7 +44,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year Art-Circler</p>
         </footer>
     </div>
 
@@ -54,7 +57,7 @@
             <%
             _.each(notifications, function(notification){
             if (notification.type == 1) { %>
-            <li><%= notification.event.artist.name %> has canceled the event at <%= notification.event.venue %> at <%= notification.event.dateTime %>.</li>
+            <li><span class="highlight"><%= notification.event.artist.name %></span> has canceled the event at <%= notification.event.venue %> at <%= notification.event.dateTime %>.</li>
             <% }
             else if (notification.type == 2) {
             var changes = [],
@@ -73,7 +76,7 @@
             newValues.push(notification.event.dateTime);
             }
             %>
-            <li><%= notification.event.artist.name %> has changed the <%= changes.join(' and ') %> of the event from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+            <li><span class="highlight"><%= notification.event.artist.name %></span> has changed the <%= changes.join(' and ') %> of the event from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
             <%
             }
             })
@@ -98,12 +101,21 @@
                             .popover({
                                 html: true,
                                 title: "Notifications",
-                                content: function () {
+                                content: function() {
                                     var compiled = _.template($("#notifications-template").html());
                                     return compiled({ notifications: notifications });
                                 },
                                 placement: "bottom"
-                            });
+                            })
+                            .on("shown.bs.popover",
+                                function () {
+                                    $.post("/api/notifications/markAsRead")
+                                        .done(function() {
+                                            $(".js-notifications-count")
+                                                .text("")
+                                                .addClass("hide");
+                                        });
+                                    });
 
                     });
             });
