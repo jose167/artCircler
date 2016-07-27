@@ -45,6 +45,7 @@ namespace ArtCircler.Models
             
             userIdentity.AddClaim(new Claim("Name", this.Name));
             userIdentity.AddClaim(new Claim("Bio", this.Bio));
+            userIdentity.AddClaim(new Claim("IsArtist", IsArtist.ToString()));
             return userIdentity;
         }
 

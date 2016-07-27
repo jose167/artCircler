@@ -176,7 +176,9 @@ namespace ArtCircler.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Genres = _context.Genres.ToList();  ///Genre has to be initialize
+                //Genre has to be initialize
+                viewModel.Genres = _context.Genres.ToList();  
+               
                 return View("FormEvent", viewModel);
             }
             var evento = new Event

@@ -1,4 +1,4 @@
-﻿@using ArtCircler.Models
+﻿@using ArtCircler.Models.Extensions
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +29,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
-                   
+                    @if (User.Identity.IsArtist().Equals("True"))
+                    {
                         <li>@Html.ActionLink("Add Event", "Create", "Events")</li>
                         <li>@Html.ActionLink("Profile", "Profile", "Manage")</li>
-                    
-                    
-                </ul>
+
+                    }
+                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
