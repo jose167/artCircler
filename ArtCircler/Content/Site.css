@@ -38,22 +38,26 @@ span.field-validation-error {
 /*Customing Bootstrap*/
 
 .navbar-inverse {
-    background-color: #558c89;
-    border-color: #558c89;
+    background: #2c3e50; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #2c3e50 , #3498db); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #2c3e50 , #3498db); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    
+    border-color: #2c3e50;
 }
 
     .navbar-inverse .navbar-nav > li > a {
         color: white;
     }
 .navbar-inverse .navbar-brand {
-    color: #ECECEA;
+    color: white;
 }
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
     background-color: rgba(139, 195, 74, 0.28);
 }
 
 .dropdown-menu {
-    background-color: #558c89;
+    background-color:#2c3e50
 }
 .dropdown-menu > li > a {
     color: white;
@@ -204,17 +208,45 @@ ul.notifications .highlight {
 }
 
 
-/*header*/
+/*header
 
 .jumbotron {
-    background: #DE6262; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #DE6262 , #FFB88C); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #DE6262 , #FFB88C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   background: #DE6262; /* fallback for old browsers 
+    background: -webkit-linear-gradient(to left, #DE6262 , #FFB88C); /* Chrome 10-25, Safari 5.1-6 
+    background: linear-gradient(to left, #DE6262 , #FFB88C); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
     margin-bottom: 0;
     color: white;
     font-weight: 900;
     font-size: 80px;
 }
+    */
+
+.jumbotron {
+    background-color: black;
+    margin-bottom: 0;
+    }
+
+.logo-heading {
+    align-content: center;
+}    
 .smallText {
     color: white;
+}
+
+/*search button */
+.text-search {
+    
+}
+
+.profile-pic {
+    width: 350px;
+    height: 350px;
+    display: inline;
+}
+
+.button-float-left {
+    float: left;
+}
+.margin {
+    margin-bottom: 45px;
 }

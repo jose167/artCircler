@@ -5,21 +5,23 @@
     ViewBag.Title = "Home Page";
 }
 <body onload="myFunction()">
-<h1>Upcoming Events </h1>
+
 @using (Html.BeginForm("Search", "Events"))
 {
+    <h4 class="text-search">looking somethign in particular</h4>
     <div class="form-group">
         <div id="searchEvent" class="input-group">
-            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "eg Artist or Venue" })
+            @Html.TextBoxFor(m => m.SearchTerm, new {@class = "form-control", placeholder = "eg Artist or Venue"})
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-search"></i>
-
-            </span>
+                </span>
         </div>
-    </div>
-    
+        
+       </div> 
 
 }
+    
+    <h1 class="text-center">Upcoming Events</h1>
 <span>
     @if (!Model.ShowActions)
     {
@@ -139,13 +141,13 @@
                     });
 
                 $(".js-toggle-follow")
-                    .click(function(e) {
+                    .click(function (e) {
                         var button = $(e.target);
                         $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                            .done(function() {
+                            .done(function () {
                                 button.text("Following");
                             })
-                            .fail(function() {
+                            .fail(function () {
                                 alert("TRY AGAIN, somenthing when wrong");
 
                             });

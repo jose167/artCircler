@@ -6,11 +6,9 @@ namespace ArtCircler.test.Extensions
 {
     public static class ApiControllerExtensions
     {
-        public static void MockCurrentUser(this ApiController controller, string userId, string username)
+        public static void MockCurrentUser(this ApiController controller, string userId)
         {
-            var identity = new GenericIdentity(username);
-            identity.AddClaim(
-                new Claim("http://squema.xmlsoap.org/ws/2005/05/identity/claims/name", username));
+            var identity = new GenericIdentity(userId);
             identity.AddClaim(
                 new Claim("http://squema.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", userId));
 

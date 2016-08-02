@@ -40,12 +40,14 @@ namespace ArtCircler.Controllers
                 .ToList()
                 .ToLookup(a => a.EventoId);
 
+         
             var viewModel = new HomeViewModel
             {
                 UpcomingEvents = upcomingEvents,
                 ShowActions = User.Identity.IsAuthenticated,
                 SearchTerm = query,
                 Attendances = attendances
+
             };
 
             return View(viewModel);

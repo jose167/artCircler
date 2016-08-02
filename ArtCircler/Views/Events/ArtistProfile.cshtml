@@ -1,4 +1,5 @@
-﻿@using System.Diagnostics.Eventing.Reader
+﻿@using System.Activities.Expressions
+@using System.Diagnostics.Eventing.Reader
 @using ArtCircler.Models
 @using Microsoft.AspNet.Identity
 @model ArtCircler.ViewModels.ArtistViewModel
@@ -8,13 +9,43 @@
 
 }
 
-<h2>
-    @Model.Evento.Artist.Name
-    @Model.Evento.Artist.Bio
-    @Model.Evento.Artist.IsArtist
-    
+<div class="container-fluid bg-1 text-center">
+    <h1 class="margin">@Model.Evento.Artist.Name</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <button class="btn btn-link btn-lg js-toggle-follow button-float-left margin" data-user-id="@Model.Evento.ArtistId">Follow</button>
+    }
+   
+    <img src="@Url.Action("Photo", "Events", new { id = @Model.Evento.Id})" class = "img-responsive img-circle margin profile-pic"/>
+    <h3>@Model.Evento.Artist.Bio</h3>
 
-    <img src="@Url.Action("Photo", "Events", new { id = @Model.Evento.Id })" />
+  
+</div>
 
 
-</h2>
+
+
+
+@section scripts{
+
+<script>
+    $(document)
+           .ready(function() {
+            $(".js-toggle-follow")
+                .click(function(e) {
+                    var button = $(e.target);
+                    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                        .done(function() {
+                            button.text("Following");
+                        })
+                        .fail(function() {
+                            alert("TRY AGAIN, somenthing when wrong");
+
+                        });
+                });
+        })
+</script>
+
+
+}
+

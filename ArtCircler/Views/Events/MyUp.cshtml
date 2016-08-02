@@ -44,7 +44,7 @@
         $(document).ready(function () {
             $(".js-cancel-event").click(function (e) {
                 var link = $(e.target);
-
+                
                 bootbox.dialog({
                     message: "Are you sure you want to delete this Event?",
                     title: "Confirm",
@@ -71,7 +71,7 @@
 
                          })
                          .fail(function () {
-                             alert("Something failed!");
+                             alert("Try againg later, something failed!");
                          });
                         }
                       }

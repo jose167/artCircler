@@ -3,9 +3,9 @@ using ArtCircler.test.Extensions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Runtime.Remoting.Contexts;
 using System.Web.Http.Controllers;
 using System.Web.Http.Results;
+using System.Web.Mvc;
 
 
 namespace ArtCircler.test.Controllers.Api
@@ -17,12 +17,12 @@ namespace ArtCircler.test.Controllers.Api
 
         public EventsControllerTest()
         {
-           var mockRepository = new Mock<Context>(); 
-
+           var mockRepository = new Mock<ControllerContext>();
+            
             var mockUow = new Mock<HttpControllerContext>();
             
             _controller = new EventController(mockUow.Object);
-            _controller.MockCurrentUser("1", "user1@doamin.com");
+            _controller.MockCurrentUser("1");
 
 
         }
